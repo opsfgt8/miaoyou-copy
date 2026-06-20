@@ -1,0 +1,39 @@
+name = "miaoyou-copy"
+main = "worker/src/index.ts"
+
+# 打包配置
+minify = true
+compatibility_flags = [ "nodejs_compat" ]
+compatibility_date = "2025-03-01"
+keep_vars = true
+
+# 启用 D1 数据库
+[[d1_databases]]
+binding = "DB"
+database_name = "miaoyou"
+database_id = "8723d4b4-9d50-4d77-b4f8-416627ff2fe4"
+
+# 设置域名
+[vars]
+VITE_EMAIL_DOMAIN = "alice7.eu.org,foodyard.eu.org,newgames.eu.org"
+# VITE_EXTERNAL_LINKS 请在 Cloudflare Pages Dashboard → 环境变量中设置
+# 格式：标签|URL,标签|URL（最多5个）
+
+# 配置邮件处理
+[triggers]
+crons = ["0 * * * *"]
+
+[build]
+command = "pnpm run build"
+
+[assets]
+binding = "ASSETS"
+directory = "frontend/dist"
+not_found_handling = "single-page-application"
+
+[ai]
+binding = "AI"
+
+[observability]
+enabled = false
+head_sampling_rate = 1
